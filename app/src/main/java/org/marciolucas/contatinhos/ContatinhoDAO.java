@@ -33,8 +33,10 @@ public class ContatinhoDAO {
 
     public ArrayList<Contatinho> retreaveAll() {
         SQLiteDatabase db = this.contatinhoDbHelper.getWritableDatabase();
-        String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME, ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
-        Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, null, null, null, null, ContatinhoContract.COLUNA_NOME + " ASC");
+        String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME,
+                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
+        Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, null, null,
+                null, null, ContatinhoContract.COLUNA_NOME + " ASC");
         ArrayList<Contatinho> contatinhos = new ArrayList<>();
 
         c.moveToFirst();
