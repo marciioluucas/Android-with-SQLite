@@ -16,8 +16,6 @@ import java.util.ArrayList;
 public class ContatinhoDAO {
 
     private ContatinhoDbHelper contatinhoDbHelper;
-    private SQLiteDatabase SQLdbWritable = this.contatinhoDbHelper.getWritableDatabase();
-    private SQLiteDatabase SQLdbReadable = this.contatinhoDbHelper.getReadableDatabase();
 
     public ContatinhoDAO(Context context) {
         this.contatinhoDbHelper = new ContatinhoDbHelper(context);
@@ -30,7 +28,7 @@ public class ContatinhoDAO {
         values.put(ContatinhoContract.COLUNA_NOME, c.getNome());
         values.put(ContatinhoContract.COLUNA_TELEFONE, c.getTelefone());
         values.put(ContatinhoContract.COLUNA_INFO, c.getInfos());
-        long rows = this.SQLdbWritable.insert(ContatinhoContract.NOME_TABELA, null, values);
+        long rows = this.contatinhoDbHelper.getWritableDatabase().insert(ContatinhoContract.NOME_TABELA, null, values);
         return rows != -1;
     }
 
@@ -42,7 +40,6 @@ public class ContatinhoDAO {
                 null, null, ContatinhoContract.COLUNA_NOME + " ASC");
         ArrayList<Contatinho> contatinhos = new ArrayList<>();
 
-        c.moveToFirst();
         while (c.moveToNext()) {
             Contatinho contato = new Contatinho();
 
@@ -66,7 +63,7 @@ public class ContatinhoDAO {
         String[] args = {c.getId().toString()};
         String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME,
                 ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
-        Cursor cursor = this.SQLdbReadable.query(
+        Cursor cursor =  this.contatinhoDbHelper.getReadableDatabase().query(
                 ContatinhoContract.NOME_TABELA,
                 colunas,
                 ContatinhoContract.COLUNA_ID + " = ?",
@@ -125,7 +122,7 @@ public class ContatinhoDAO {
 
         String cond = ContatinhoContract.COLUNA_ID + " = ?";
         String[] args = {c.getId().toString()};
-        long rows = this.SQLdbWritable.update(ContatinhoContract.NOME_TABELA, values, cond, args);
+        long rows =  this.contatinhoDbHelper.getWritableDatabase().update(ContatinhoContract.NOME_TABELA, values, cond, args);
         return rows != -1;
     }
 
@@ -133,7 +130,7 @@ public class ContatinhoDAO {
     public boolean delete(Integer id) {
         String restriction = ContatinhoContract.COLUNA_ID + " = ? ";
         String[] arguments = {id.toString()};
-        long rows = this.SQLdbWritable.delete(ContatinhoContract.NOME_TABELA, restriction, arguments);
+        long rows =  this.contatinhoDbHelper.getWritableDatabase().delete(ContatinhoContract.NOME_TABELA, restriction, arguments);
 
         return rows > 0;
     }

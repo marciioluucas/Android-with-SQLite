@@ -18,7 +18,12 @@
         </activity>
         <activity
             android:name=".controller.Main2Activity"
-            android:label="@string/title_activity_main2"></activity>
+            android:label="@string/title_activity_main2" />
+        <activity
+            android:name=".controller.DetalhesActivity"
+            android:label="@string/title_activity_detalhes"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".controller.ContatoActivity"></activity>
     </application>
 
 </manifest>

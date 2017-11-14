@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
             switch (item.getItemId()) {
                 case R.id.lista:
-                    setTitle("Lista");
+                    setTitle("Lista de contatinhos");
                     ListaFragment fragment = new ListaFragment();
                     fragmentTransaction.replace(R.id.content, fragment, "tag1");
                     fragmentTransaction.commit();
