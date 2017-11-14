@@ -1,4 +1,4 @@
-package org.marciolucas.contatinhos;
+package org.marciolucas.contatinhos.service;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -14,7 +14,8 @@ final class ContatinhoDbHelper extends SQLiteOpenHelper {
             ContatinhoContract.COLUNA_ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
             ContatinhoContract.COLUNA_NOME + " TEXT, " +
             ContatinhoContract.COLUNA_TELEFONE + " TEXT, " +
-            ContatinhoContract.COLUNA_INFO + " TEXT); ";
+            ContatinhoContract.COLUNA_INFO + " TEXT," +
+            ContatinhoContract.COLUNA_IS_CURTIDA + " BOOLEAN DEFAULT 0); ";
 
     private static final String SQL_DROP = "DROP TABLE IF EXISTS " + ContatinhoContract.NOME_TABELA + ";";
     private static final int DATABASE_VERSION = 1;

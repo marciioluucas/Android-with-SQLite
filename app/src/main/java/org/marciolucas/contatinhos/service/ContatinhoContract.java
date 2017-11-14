@@ -1,4 +1,4 @@
-package org.marciolucas.contatinhos;
+package org.marciolucas.contatinhos.service;
 
 import android.provider.BaseColumns;
 
@@ -15,5 +15,6 @@ public final class ContatinhoContract implements BaseColumns {
     public static final String COLUNA_NOME = "nome";
     public static final String COLUNA_TELEFONE = "telefone";
     public static final String COLUNA_INFO = "info";
+    public static final String COLUNA_IS_CURTIDA = "is_curtida";
 
 }

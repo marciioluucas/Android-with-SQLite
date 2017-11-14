@@ -1,32 +1,29 @@
-package org.marciolucas.contatinhos;
+package org.marciolucas.contatinhos.model;
+
+import android.content.Context;
+
+import java.util.ArrayList;
 
 /**
- * Created by Márcio Lucas R Oliveira <marciioluucas@gmail.com> on 09/11/2017.
+ * Created by marci on 14/11/2017.
  */
 
-public class Contatinho {
+public abstract class Pessoa {
     private Integer id;
     private String nome;
     private String telefone;
     private String infos;
+    protected Context context;
 
-    public Contatinho() {
-    }
+    public abstract Boolean cadastrar();
+    public abstract Boolean alterar();
+    public abstract ArrayList<Contatinho> retreaveAll();
+    public abstract Pessoa retreaveById();
+    public abstract Boolean deletar();
 
-    public Contatinho(Integer id, String nome, String telefone, String infos) {
-        this.id = id;
-        this.nome = nome;
-        this.telefone = telefone;
-        this.infos = infos;
-    }
+    public Integer getId() {return id;}
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
+    public void setId(Integer id) {this.id = id;}
 
     public String getNome() {
         return nome;

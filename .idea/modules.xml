@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Contatinhos.iml" filepath="$PROJECT_DIR$/Contatinhos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Android-with-SQLite.iml" filepath="$PROJECT_DIR$/Android-with-SQLite.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>
