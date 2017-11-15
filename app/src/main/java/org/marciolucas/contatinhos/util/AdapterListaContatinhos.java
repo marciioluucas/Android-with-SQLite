@@ -44,7 +44,7 @@ public class AdapterListaContatinhos extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        View v = this.activity.getLayoutInflater().inflate(R.layout.lista_contato_personalizada, null);
+        View v = this.activity.getLayoutInflater().inflate(R.layout.lista_contato_personalizada, parent, false);
         Contatinho contatinho = contatinhos.get(position);
         TextView nome = (TextView)
                 v.findViewById(R.id.lista_contato_personalizada_nome);
