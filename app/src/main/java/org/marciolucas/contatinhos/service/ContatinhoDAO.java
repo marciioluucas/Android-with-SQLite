@@ -35,7 +35,7 @@ public class ContatinhoDAO {
     public ArrayList<Contatinho> retreaveAll() {
         SQLiteDatabase db = this.contatinhoDbHelper.getWritableDatabase();
         String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME,
-                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
+                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO, ContatinhoContract.COLUNA_IS_CURTIDA};
         Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, null, null,
                 null, null, ContatinhoContract.COLUNA_NOME + " ASC");
         ArrayList<Contatinho> contatinhos = new ArrayList<>();
@@ -47,6 +47,9 @@ public class ContatinhoDAO {
             contato.setNome(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_NOME)));
             contato.setTelefone(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_TELEFONE)));
             contato.setInfos(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_INFO)));
+            contato.setCurtida(
+                    c.getInt(c.getColumnIndex(ContatinhoContract.COLUNA_IS_CURTIDA)) == 1
+            );
             contatinhos.add(contato);
         }
 
@@ -54,49 +57,43 @@ public class ContatinhoDAO {
         return contatinhos;
     }
 
-    public Contatinho retreaveById(Contatinho c) {
-        ContentValues values = new ContentValues();
-        values.put(ContatinhoContract.COLUNA_NOME, c.getNome());
-        values.put(ContatinhoContract.COLUNA_TELEFONE, c.getTelefone());
-        values.put(ContatinhoContract.COLUNA_INFO, c.getInfos());
-        String cond = ContatinhoContract.COLUNA_ID + " = ?";
-        String[] args = {c.getId().toString()};
+    public Contatinho retreaveById(Contatinho contatinho) {
+        SQLiteDatabase db = this.contatinhoDbHelper.getReadableDatabase();
         String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME,
-                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
-        Cursor cursor =  this.contatinhoDbHelper.getReadableDatabase().query(
-                ContatinhoContract.NOME_TABELA,
-                colunas,
-                ContatinhoContract.COLUNA_ID + " = ?",
+                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO, ContatinhoContract.COLUNA_IS_CURTIDA};
+        String[] args = {contatinho.getId().toString()};
+        Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, ContatinhoContract.COLUNA_ID + " = ?",
                 args,
                 null, null, ContatinhoContract.COLUNA_NOME + " ASC");
 
+        c.moveToNext();
         Contatinho contato = new Contatinho();
+        contato.setId(c.getInt(c.getColumnIndex(ContatinhoContract.COLUNA_ID)));
+        contato.setNome(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_NOME)));
+        contato.setTelefone(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_TELEFONE)));
+        contato.setInfos(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_INFO)));
+        contato.setCurtida(c.getInt(c.getColumnIndex(ContatinhoContract.COLUNA_IS_CURTIDA)) == 1);
 
-        contato.setId(cursor.getInt(cursor.getColumnIndex(ContatinhoContract.COLUNA_ID)));
-        contato.setNome(cursor.getString(cursor.getColumnIndex(ContatinhoContract.COLUNA_NOME)));
-        contato.setTelefone(cursor.getString(cursor.getColumnIndex(ContatinhoContract.COLUNA_TELEFONE)));
-        contato.setInfos(cursor.getString(cursor.getColumnIndex(ContatinhoContract.COLUNA_INFO)));
-
+        c.close();
         return contato;
     }
 
-    public ArrayList<Contatinho> retreaveByCurtida(){
+    public ArrayList<Contatinho> retreaveByCurtida() {
         SQLiteDatabase db = this.contatinhoDbHelper.getWritableDatabase();
         String[] colunas = {ContatinhoContract.COLUNA_ID, ContatinhoContract.COLUNA_NOME,
-                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO};
-        Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, ContatinhoContract.COLUNA_ID + " = true",
+                ContatinhoContract.COLUNA_TELEFONE, ContatinhoContract.COLUNA_INFO, ContatinhoContract.COLUNA_IS_CURTIDA};
+        Cursor c = db.query(ContatinhoContract.NOME_TABELA, colunas, ContatinhoContract.COLUNA_IS_CURTIDA + " = 1",
                 null,
                 null, null, ContatinhoContract.COLUNA_NOME + " ASC");
         ArrayList<Contatinho> contatinhos = new ArrayList<>();
 
-        c.moveToFirst();
         while (c.moveToNext()) {
             Contatinho contato = new Contatinho();
-
             contato.setId(c.getInt(c.getColumnIndex(ContatinhoContract.COLUNA_ID)));
             contato.setNome(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_NOME)));
             contato.setTelefone(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_TELEFONE)));
             contato.setInfos(c.getString(c.getColumnIndex(ContatinhoContract.COLUNA_INFO)));
+            contato.setCurtida(c.getInt(c.getColumnIndex(ContatinhoContract.COLUNA_IS_CURTIDA)) == 1);
             contatinhos.add(contato);
         }
 
@@ -107,22 +104,16 @@ public class ContatinhoDAO {
 
     public boolean update(Contatinho c) {
         ContentValues values = new ContentValues();
-        if(c.getNome() != null){
-            values.put(ContatinhoContract.COLUNA_NOME, c.getNome());
-        }
-        if(c.getInfos() != null){
-            values.put(ContatinhoContract.COLUNA_TELEFONE, c.getTelefone());
-        }
-        if(c.getInfos() != null) {
-            values.put(ContatinhoContract.COLUNA_INFO, c.getInfos());
-        }
-        if(!c.getIsCurtida()) {
-            values.put(ContatinhoContract.COLUNA_IS_CURTIDA, c.getIsCurtida());
-        }
+
+        values.put(ContatinhoContract.COLUNA_NOME, c.getNome());
+        values.put(ContatinhoContract.COLUNA_TELEFONE, c.getTelefone());
+        values.put(ContatinhoContract.COLUNA_INFO, c.getInfos());
+        values.put(ContatinhoContract.COLUNA_IS_CURTIDA, c.getIsCurtida());
+
 
         String cond = ContatinhoContract.COLUNA_ID + " = ?";
         String[] args = {c.getId().toString()};
-        long rows =  this.contatinhoDbHelper.getWritableDatabase().update(ContatinhoContract.NOME_TABELA, values, cond, args);
+        long rows = this.contatinhoDbHelper.getWritableDatabase().update(ContatinhoContract.NOME_TABELA, values, cond, args);
         return rows != -1;
     }
 
@@ -130,7 +121,7 @@ public class ContatinhoDAO {
     public boolean delete(Integer id) {
         String restriction = ContatinhoContract.COLUNA_ID + " = ? ";
         String[] arguments = {id.toString()};
-        long rows =  this.contatinhoDbHelper.getWritableDatabase().delete(ContatinhoContract.NOME_TABELA, restriction, arguments);
+        long rows = this.contatinhoDbHelper.getWritableDatabase().delete(ContatinhoContract.NOME_TABELA, restriction, arguments);
 
         return rows > 0;
     }

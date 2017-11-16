@@ -1,20 +1,28 @@
 package org.marciolucas.contatinhos.controller;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.app.Fragment;
+import android.support.design.widget.FloatingActionButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 
 import org.marciolucas.contatinhos.R;
+import org.marciolucas.contatinhos.model.Contatinho;
+import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.util.AdapterListaContatinhos;
+
+import java.util.ArrayList;
 
 /**
  * A simple {@link Fragment} subclass.
- * Use the {@link CurtidaFragment#newInstance} factory method to
+ * Use the {@link ListaCurtidaFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class CurtidaFragment extends Fragment {
+public class ListaCurtidaFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -25,7 +33,7 @@ public class CurtidaFragment extends Fragment {
     private String mParam2;
 
 
-    public CurtidaFragment() {
+    public ListaCurtidaFragment() {
         // Required empty public constructor
     }
 
@@ -35,11 +43,11 @@ public class CurtidaFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment CurtidaFragment.
+     * @return A new instance of fragment ListaCurtidaFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static CurtidaFragment newInstance(String param1, String param2) {
-        CurtidaFragment fragment = new CurtidaFragment();
+    public static ListaCurtidaFragment newInstance(String param1, String param2) {
+        ListaCurtidaFragment fragment = new ListaCurtidaFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -60,7 +68,12 @@ public class CurtidaFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_curtida, container, false);
+        View v = inflater.inflate(R.layout.fragment_curtida, container, false);
+        ArrayList<Contatinho> todosContatinhos = new ContatinhoDAO(getActivity().getApplicationContext()).retreaveByCurtida();
+        ListView listView = (ListView) v.findViewById(R.id.listaContatinhosCurtidos);
+        AdapterListaContatinhos adapter = new AdapterListaContatinhos(getContext(),todosContatinhos, getActivity());
+        listView.setAdapter(adapter);
+        return v;
     }
 
 }

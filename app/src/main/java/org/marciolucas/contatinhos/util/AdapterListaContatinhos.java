@@ -2,13 +2,19 @@ package org.marciolucas.contatinhos.util;
 
 
 import android.app.Activity;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Bundle;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+
 import org.marciolucas.contatinhos.R;
+import org.marciolucas.contatinhos.controller.DetalhesActivity;
 import org.marciolucas.contatinhos.model.Contatinho;
 
 import java.util.List;
@@ -21,9 +27,11 @@ public class AdapterListaContatinhos extends BaseAdapter {
 
     private final List<Contatinho> contatinhos;
     private final Activity activity;
+    protected  Context context;
 
-    public AdapterListaContatinhos(List<Contatinho> contatinhos, Activity activity) {
+    public AdapterListaContatinhos(Context context, List<Contatinho> contatinhos, Activity activity) {
         this.contatinhos = contatinhos;
+        this.context = context;
         this.activity = activity;
     }
 
@@ -43,9 +51,9 @@ public class AdapterListaContatinhos extends BaseAdapter {
     }
 
     @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
+    public View getView(int position, final View convertView, ViewGroup parent) {
         View v = this.activity.getLayoutInflater().inflate(R.layout.lista_contato_personalizada, parent, false);
-        Contatinho contatinho = contatinhos.get(position);
+        final Contatinho contatinho = contatinhos.get(position);
         TextView nome = (TextView)
                 v.findViewById(R.id.lista_contato_personalizada_nome);
         TextView telefone = (TextView)
@@ -56,6 +64,15 @@ public class AdapterListaContatinhos extends BaseAdapter {
         nome.setText(contatinho.getNome());
         telefone.setText(contatinho.getTelefone());
         imagem.setImageResource(R.drawable.ic_home_black_24dp);
+        v.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(activity, DetalhesActivity.class);
+                i.putExtra("contatinho",new Gson().toJson(contatinho));
+                context.startActivity(i);
+            }
+        });
         return v;
     }
 }

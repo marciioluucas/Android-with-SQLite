@@ -76,20 +76,10 @@ public class ListaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_lista, container, false);
-
-
         ArrayList<Contatinho> todosContatinhos = new ContatinhoDAO(getActivity().getApplicationContext()).retreaveAll();
-
-
         ListView listView = (ListView) v.findViewById(R.id.listaContatinhos);
-        AdapterListaContatinhos adapter = new AdapterListaContatinhos(todosContatinhos, getActivity());
+        AdapterListaContatinhos adapter = new AdapterListaContatinhos(getContext(),todosContatinhos, getActivity());
         listView.setAdapter(adapter);
-//
-//        String[] itens = new String[]{"Uma Activity",
-//                "Google.com", "Ligar pra mim mesmo", "Abrir contato mamãe", "Ir para o bosque",
-//                "Abrir as configurações", "Configuração de som", "Configuração de acessibilidade"};
-//        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getContext(), android.R.layout.simple_list_item_2, itens);
-//        listView.setAdapter(arrayAdapter);
         FloatingActionButton btnAdd = (FloatingActionButton) v.findViewById(R.id.botaoAdicionar);
         btnAdd.setOnClickListener(new View.OnClickListener() {
 

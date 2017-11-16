@@ -1,8 +1,6 @@
 package org.marciolucas.contatinhos.controller;
 
-import android.app.FragmentManager;
 import android.app.FragmentTransaction;
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v7.app.AppCompatActivity;
@@ -38,7 +36,7 @@ public class MainActivity extends AppCompatActivity {
                     break;
                 case R.id.curtidas:
                     setTitle("Curtidas");
-                    CurtidaFragment fragment3 = new CurtidaFragment();
+                    ListaCurtidaFragment fragment3 = new ListaCurtidaFragment();
                     fragmentTransaction.replace(R.id.content, fragment3, "tag3");
                     fragmentTransaction.commit();
                     break;

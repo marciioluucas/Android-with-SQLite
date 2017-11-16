@@ -1,6 +1,9 @@
 package org.marciolucas.contatinhos.model;
 
 import android.content.Context;
+import android.util.Log;
+
+import com.google.gson.Gson;
 
 import org.marciolucas.contatinhos.service.ContatinhoDAO;
 
@@ -20,18 +23,16 @@ public class Curtida {
 
     public Boolean curtir() throws Exception {
         ContatinhoDAO contatinhoDAO = new ContatinhoDAO(this.context);
-        Contatinho resultRet = contatinhoDAO.retreaveById(this.contatinho);
         try {
-            if (resultRet != null) {
-                Contatinho contatinhoToUpdate = new Contatinho();
-                contatinhoToUpdate.setNome(this.contatinho.getNome());
-                contatinhoToUpdate.setInfos(this.contatinho.getInfos());
-                contatinhoToUpdate.setTelefone(this.contatinho.getTelefone());
-                return contatinhoDAO.update(contatinhoToUpdate);
+            ContatinhoDAO dao = new ContatinhoDAO(this.context);
+            Contatinho rtrvById = dao.retreaveById(contatinho);
+
+            if(rtrvById == null){
+                contatinho.setCurtida(true);
             }
+            return true;
         } catch (Exception e) {
             throw new Exception(e.getMessage());
         }
-        return false;
     }
 }
