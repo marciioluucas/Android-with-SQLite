@@ -57,7 +57,7 @@ public class DetalhesActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 ContatinhoDAO dao = new ContatinhoDAO(getApplicationContext());
-                Contatinho rtrvById = dao.retreaveById(contatinho);
+                Contatinho rtrvById = dao.retreaveById(contatinho.getId());
                 contatinho.setCurtida(false);
                 String txtResposta = "Contatinho descurtido: ";
                 fab.setImageResource(R.drawable.favorite_border_black_192x192);

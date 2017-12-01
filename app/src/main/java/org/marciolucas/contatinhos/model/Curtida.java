@@ -25,7 +25,7 @@ public class Curtida {
         ContatinhoDAO contatinhoDAO = new ContatinhoDAO(this.context);
         try {
             ContatinhoDAO dao = new ContatinhoDAO(this.context);
-            Contatinho rtrvById = dao.retreaveById(contatinho);
+            Contatinho rtrvById = dao.retreaveById(contatinho.getId());
 
             if(rtrvById == null){
                 contatinho.setCurtida(true);

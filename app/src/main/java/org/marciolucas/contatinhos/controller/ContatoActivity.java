@@ -42,11 +42,11 @@ public class ContatoActivity extends AppCompatActivity {
         btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (txtNome.toString() == null && txtNome.toString().equals("")) {
+                if (txtNome.toString() == null || txtNome.toString().equals("")) {
                     Toast t = Toast.makeText(getApplicationContext(), "Nome é requirido", Toast.LENGTH_SHORT);
                     t.show();
 
-                } else if (txtTelefone.toString() == null && txtTelefone.toString().equals("")) {
+                } else if (txtTelefone.toString() == null || txtTelefone.toString().equals("")) {
                     Toast t = Toast.makeText(getApplicationContext(), "Nome é requirido", Toast.LENGTH_SHORT);
                     t.show();
                 } else {
