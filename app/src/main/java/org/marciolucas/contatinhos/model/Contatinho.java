@@ -4,9 +4,10 @@ import android.arch.persistence.room.ColumnInfo;
 import android.arch.persistence.room.Entity;
 import android.content.Context;
 
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Márcio Lucas R Oliveira <marciioluucas@gmail.com> on 09/11/2017.
@@ -24,37 +25,6 @@ public class Contatinho extends Pessoa {
 
     public Contatinho() {
 
-    }
-
-    @Override
-    public Boolean cadastrar() {
-        return null;
-    }
-
-    @Override
-    public Boolean alterar() {
-        return null;
-    }
-
-    @Override
-    public ArrayList<Contatinho> retreaveAll() {
-        return new ContatinhoDAO(this.context).retreaveAll();
-    }
-
-    @Override
-    public Pessoa retreaveById() {
-        return null;
-    }
-
-    @Override
-    public Boolean deletar() {
-        return null;
-    }
-
-    public Boolean curtir() throws Exception {
-        this.isCurtida = true;
-        Curtida c = new Curtida(this.context, this);
-        return c.curtir();
     }
 
     public boolean getIsCurtida() {

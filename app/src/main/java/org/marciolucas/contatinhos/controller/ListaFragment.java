@@ -18,7 +18,7 @@ import android.widget.SimpleAdapter;
 
 import org.marciolucas.contatinhos.R;
 import org.marciolucas.contatinhos.model.Contatinho;
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 import org.marciolucas.contatinhos.util.AdapterListaContatinhos;
 
 import java.util.ArrayList;
@@ -76,7 +76,7 @@ public class ListaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_lista, container, false);
-        ArrayList<Contatinho> todosContatinhos = new ContatinhoDAO(getActivity().getApplicationContext()).retreaveAll();
+        List<Contatinho> todosContatinhos = new ContatinhoImpl(getActivity().getApplicationContext()).retreaveAll();
         ListView listView = (ListView) v.findViewById(R.id.listaContatinhos);
         AdapterListaContatinhos adapter = new AdapterListaContatinhos(getContext(),todosContatinhos, getActivity());
         listView.setAdapter(adapter);

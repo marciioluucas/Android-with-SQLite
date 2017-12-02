@@ -17,7 +17,7 @@ import com.google.gson.Gson;
 import org.marciolucas.contatinhos.R;
 import org.marciolucas.contatinhos.model.Contatinho;
 import org.marciolucas.contatinhos.model.Curtida;
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 
 public class DetalhesActivity extends AppCompatActivity {
     private Activity activity = this;
@@ -56,7 +56,7 @@ public class DetalhesActivity extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ContatinhoDAO dao = new ContatinhoDAO(getApplicationContext());
+                ContatinhoImpl dao = new ContatinhoImpl(getApplicationContext());
                 Contatinho rtrvById = dao.retreaveById(contatinho.getId());
                 contatinho.setCurtida(false);
                 String txtResposta = "Contatinho descurtido: ";
@@ -68,7 +68,7 @@ public class DetalhesActivity extends AppCompatActivity {
                 }
 
 
-                if (dao.update(contatinho)) {
+                if (dao.update(contatinho)!=-1) {
                     ImageView imgV = (ImageView) findViewById(R.id.imageGif);
                     Glide.with(activity).load(R.mipmap.giphy).into(imgV);
                     Snackbar.make(view, txtResposta + contatinho.getNome(), Snackbar.LENGTH_LONG)
@@ -90,8 +90,8 @@ public class DetalhesActivity extends AppCompatActivity {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ContatinhoDAO dao = new ContatinhoDAO(getApplicationContext());
-                dao.delete(contatinho.getId());
+                ContatinhoImpl dao = new ContatinhoImpl(getApplicationContext());
+                dao.delete(contatinho);
                 startActivity(new Intent(activity, MainActivity.class));
             }
         });

@@ -1,5 +1,6 @@
 package org.marciolucas.contatinhos.service;
 
+import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
@@ -8,28 +9,30 @@ import android.arch.persistence.room.Update;
 import org.marciolucas.contatinhos.model.Contatinho;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Admin on 30/11/2017.
  */
 
+@Dao
 public interface IContatinhoDAO {
     @Insert
-    boolean insert(Contatinho c);
+    Long insert(Contatinho c);
 
     @Query("SELECT * FROM contatinhos")
-    ArrayList<Contatinho> retreaveAll();
+    List<Contatinho> retreaveAll();
 
     @Update
-    boolean update(Contatinho c);
+    int update(Contatinho c);
 
     @Query("SELECT * FROM contatinhos where id = :id")
     Contatinho retreaveById(Long id);
 
-    @Query("SELECT * FROM contatinhos where curtida = 1")
-    ArrayList<Contatinho> retreaveByCurtida();
+    @Query("SELECT * FROM contatinhos where isCurtida = 1")
+    List<Contatinho> retreaveByCurtida();
 
     @Delete
-    boolean delete(Long id);
+    int delete(Contatinho contatinho);
 
 }

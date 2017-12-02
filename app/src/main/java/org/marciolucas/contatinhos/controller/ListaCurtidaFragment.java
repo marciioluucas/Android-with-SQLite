@@ -12,10 +12,11 @@ import android.widget.ListView;
 
 import org.marciolucas.contatinhos.R;
 import org.marciolucas.contatinhos.model.Contatinho;
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 import org.marciolucas.contatinhos.util.AdapterListaContatinhos;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -69,7 +70,7 @@ public class ListaCurtidaFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_curtida, container, false);
-        ArrayList<Contatinho> todosContatinhos = new ContatinhoDAO(getActivity().getApplicationContext()).retreaveByCurtida();
+        List<Contatinho> todosContatinhos = new ContatinhoImpl(getActivity().getApplicationContext()).retreaveByCurtida();
         ListView listView = (ListView) v.findViewById(R.id.listaContatinhosCurtidos);
         AdapterListaContatinhos adapter = new AdapterListaContatinhos(getContext(),todosContatinhos, getActivity());
         listView.setAdapter(adapter);

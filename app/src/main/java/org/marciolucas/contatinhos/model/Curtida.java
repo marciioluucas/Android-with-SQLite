@@ -5,7 +5,7 @@ import android.util.Log;
 
 import com.google.gson.Gson;
 
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 
 /**
  * Created by marci on 14/11/2017.
@@ -22,9 +22,9 @@ public class Curtida {
     }
 
     public Boolean curtir() throws Exception {
-        ContatinhoDAO contatinhoDAO = new ContatinhoDAO(this.context);
+        ContatinhoImpl contatinhoDAO = new ContatinhoImpl(this.context);
         try {
-            ContatinhoDAO dao = new ContatinhoDAO(this.context);
+            ContatinhoImpl dao = new ContatinhoImpl(this.context);
             Contatinho rtrvById = dao.retreaveById(contatinho.getId());
 
             if(rtrvById == null){

@@ -2,10 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/Android-with-SQLite.iml" filepath="$PROJECT_DIR$/Android-with-SQLite.iml" />
+      <module fileurl="file://C:\Users\marci\AndroidStudioProjects\ContatinhosRoom\Android-with-SQLite.iml" filepath="C:\Users\marci\AndroidStudioProjects\ContatinhosRoom\Android-with-SQLite.iml" />
       <module fileurl="file://C:\Users\marci\AndroidStudioProjects\Android-with-SQLite\Contatinhos.iml" filepath="C:\Users\marci\AndroidStudioProjects\Android-with-SQLite\Contatinhos.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ContatinhosRoom.iml" filepath="$PROJECT_DIR$/ContatinhosRoom.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file://C:\Users\Admin\AndroidStudioProjects\Android-with-SQLite\app\app.iml" filepath="C:\Users\Admin\AndroidStudioProjects\Android-with-SQLite\app\app.iml" />
+      <module fileurl="file://C:\Users\marci\AndroidStudioProjects\ContatinhosRoom\app\app.iml" filepath="C:\Users\marci\AndroidStudioProjects\ContatinhosRoom\app\app.iml" />
     </modules>
   </component>
 </project>

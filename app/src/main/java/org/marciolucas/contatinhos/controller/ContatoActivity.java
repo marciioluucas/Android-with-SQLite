@@ -13,7 +13,7 @@ import com.google.gson.Gson;
 
 import org.marciolucas.contatinhos.R;
 import org.marciolucas.contatinhos.model.Contatinho;
-import org.marciolucas.contatinhos.service.ContatinhoDAO;
+import org.marciolucas.contatinhos.service.ContatinhoImpl;
 
 public class ContatoActivity extends AppCompatActivity {
     private Activity activity = this;
@@ -51,7 +51,7 @@ public class ContatoActivity extends AppCompatActivity {
                     t.show();
                 } else {
                     Contatinho c = new Contatinho();
-                    ContatinhoDAO dao = new ContatinhoDAO(getApplicationContext());
+                    ContatinhoImpl dao = new ContatinhoImpl(getApplicationContext());
                     c.setNome(txtNome.getText().toString());
                     c.setTelefone(txtTelefone.getText().toString());
                     c.setInfos(txtInfos.getText().toString());
@@ -60,7 +60,7 @@ public class ContatoActivity extends AppCompatActivity {
                         Contatinho contatinhoFromIntent = new Gson().fromJson(getIntent().getStringExtra("contatinho"), Contatinho.class);
                         c.setId(contatinhoFromIntent.getId());
 
-                        if (dao.update(c)) {
+                        if (dao.update(c) != -1) {
                             Toast.makeText(getApplicationContext(), "Contatinho alterado", Toast.LENGTH_SHORT).show();
                             Intent i = new Intent(activity, DetalhesActivity.class);
                             i.putExtra("contatinho", new Gson().toJson(c));
@@ -70,7 +70,7 @@ public class ContatoActivity extends AppCompatActivity {
                         }
                     } else {
 
-                        if (dao.insert(c)) {
+                        if (dao.insert(c) != -1) {
                             Toast.makeText(getApplicationContext(), "Contatinho cadastrado", Toast.LENGTH_SHORT).show();
                             startActivity(new Intent(activity, MainActivity.class));
                         } else {
